@@ -1,0 +1,1836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nikah Connect - Premium Muslim Matrimonial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        neutral: {
+                            50: '#fafafa',
+                            100: '#f5f5f5',
+                            200: '#e5e5e5',
+                            300: '#d4d4d4',
+                            400: '#a3a3a3',
+                            500: '#737373',
+                            600: '#525252',
+                            700: '#404040',
+                            800: '#262626',
+                            900: '#171717',
+                        },
+                        accent: {
+                            gold: '#d4af37',
+                            rose: '#fb7185',
+                            emerald: '#10b981',
+                        }
+                    },
+                    fontFamily: {
+                        'display': ['Playfair Display', 'serif'],
+                        'sans': ['Inter', 'sans-serif']
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'slide-down': 'slideDown 0.3s ease-out',
+                        'scale-in': 'scaleIn 0.3s ease-out',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'shimmer': 'shimmer 2s linear infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        slideDown: {
+                            '0%': { transform: 'translateY(-20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        scaleIn: {
+                            '0%': { transform: 'scale(0.9)', opacity: '0' },
+                            '100%': { transform: 'scale(1)', opacity: '1' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200% 0' },
+                            '100%': { backgroundPosition: '200% 0' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    },
+                    backdropBlur: {
+                        xs: '2px',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(to bottom right, #f0f9ff, #fafafa);
+            color: #171717;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .page {
+            display: none;
+            min-height: 100vh;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .active-page {
+            display: block;
+        }
+        
+        /* Glass morphism effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        /* Premium card effect */
+        .premium-card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+        }
+        
+        .premium-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        /* Modern input styles */
+        .modern-input {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .modern-input input,
+        .modern-input textarea {
+            width: 100%;
+            padding: 1.25rem;
+            background: #fafafa;
+            border: 2px solid transparent;
+            border-radius: 16px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        
+        .modern-input input:focus,
+        .modern-input textarea:focus {
+            background: white;
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
+        }
+        
+        .modern-input label {
+            position: absolute;
+            left: 1.25rem;
+            top: 1.25rem;
+            color: #737373;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            background: transparent;
+            padding: 0 0.5rem;
+        }
+        
+        .modern-input input:focus + label,
+        .modern-input input:not(:placeholder-shown) + label,
+        .modern-input textarea:focus + label,
+        .modern-input textarea:not(:placeholder-shown) + label {
+            top: -0.5rem;
+            left: 1rem;
+            font-size: 0.875rem;
+            color: #0ea5e9;
+            background: white;
+        }
+        
+        /* Premium button */
+        .btn-primary {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px 0 rgba(14, 165, 233, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px 0 rgba(14, 165, 233, 0.4);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        
+        /* Skeleton loader */
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 2s linear infinite;
+            border-radius: 8px;
+        }
+        
+        /* Professional navbar */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        
+        .nav-item {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 3px;
+            background: #0ea5e9;
+            border-radius: 3px 3px 0 0;
+        }
+        
+        /* Profile card enhancement */
+        .profile-image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+        }
+        
+        .profile-image-container::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        }
+        
+        /* Modern modal */
+        .modal-backdrop {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        
+        .modal-content {
+            animation: scaleIn 0.3s ease-out;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        /* Chat bubble styles */
+        .chat-bubble {
+            max-width: 75%;
+            word-wrap: break-word;
+        }
+        
+        .chat-bubble-sent {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            color: white;
+            border-radius: 20px 20px 4px 20px;
+        }
+        
+        .chat-bubble-received {
+            background: #f3f4f6;
+            color: #374151;
+            border-radius: 20px 20px 20px 4px;
+        }
+        
+        /* Floating labels for select */
+        .select-container {
+            position: relative;
+        }
+        
+        .select-container select {
+            appearance: none;
+            width: 100%;
+            padding: 1.25rem;
+            padding-right: 3rem;
+            background: #fafafa;
+            border: 2px solid transparent;
+            border-radius: 16px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            outline: none;
+            cursor: pointer;
+        }
+        
+        .select-container select:focus {
+            background: white;
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
+        }
+        
+        .select-container::after {
+            content: '\f078';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: #737373;
+            transition: all 0.3s ease;
+        }
+        
+        .select-container:focus-within::after {
+            color: #0ea5e9;
+        }
+        
+        /* Premium photo upload */
+        .photo-upload-area {
+            border: 2px dashed #d1d5db;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .photo-upload-area:hover {
+            border-color: #0ea5e9;
+            background: #f0f9ff;
+        }
+        
+        .photo-upload-area.has-image {
+            border: none;
+        }
+        
+        /* Notification badge */
+        .notification-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: #ef4444;
+            color: white;
+            font-size: 0.625rem;
+            font-weight: 700;
+            padding: 0.125rem 0.375rem;
+            border-radius: 9999px;
+            min-width: 18px;
+            text-align: center;
+        }
+        
+        /* Loading spinner */
+        .spinner {
+            border: 3px solid #f3f4f6;
+            border-top: 3px solid #0ea5e9;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        
+        /* Status indicator */
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid white;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+        
+        .status-online {
+            background: #10b981;
+        }
+        
+        .status-offline {
+            background: #6b7280;
+        }
+        
+        /* Ripple effect */
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ripple::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .ripple:active::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        /* Text gradient */
+        .text-gradient {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Premium radio buttons */
+        .radio-option {
+            position: relative;
+            cursor: pointer;
+            padding: 1.25rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .radio-option:hover {
+            border-color: #0ea5e9;
+            background: #f0f9ff;
+        }
+        
+        .radio-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+        
+        .radio-option input[type="radio"]:checked + .radio-content {
+            color: #0ea5e9;
+        }
+        
+        .radio-option input[type="radio"]:checked ~ .radio-indicator {
+            background: #0ea5e9;
+            border-color: #0ea5e9;
+        }
+        
+        .radio-option input[type="radio"]:checked ~ .radio-indicator::after {
+            transform: scale(1);
+        }
+        
+        .radio-indicator {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #d1d5db;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .radio-indicator::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.3s ease;
+        }
+        
+        /* Success animation */
+        .success-checkmark {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+        }
+        
+        .success-checkmark .check-icon {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            border-radius: 50%;
+            box-sizing: content-box;
+            border: 4px solid #10b981;
+        }
+        
+        .success-checkmark .check-icon::before {
+            top: 3px;
+            left: -2px;
+            width: 30px;
+            transform-origin: 100% 50%;
+            border-radius: 100px 0 0 100px;
+        }
+        
+        .success-checkmark .check-icon::after {
+            top: 0;
+            left: 30px;
+            width: 60px;
+            transform-origin: 0 50%;
+            border-radius: 0 100px 100px 0;
+            animation: rotate-circle 4.25s ease-in;
+        }
+        
+        .success-checkmark .check-icon::before,
+        .success-checkmark .check-icon::after {
+            content: '';
+            height: 100px;
+            position: absolute;
+            background: white;
+            transform: rotate(-45deg);
+        }
+        
+        .success-checkmark .check-icon .icon-line {
+            height: 5px;
+            background-color: #10b981;
+            display: block;
+            border-radius: 2px;
+            position: absolute;
+            z-index: 10;
+        }
+        
+        .success-checkmark .check-icon .icon-line.line-tip {
+            top: 46px;
+            left: 14px;
+            width: 25px;
+            transform: rotate(45deg);
+            animation: icon-line-tip 0.75s;
+        }
+        
+        .success-checkmark .check-icon .icon-line.line-long {
+            top: 38px;
+            right: 8px;
+            width: 47px;
+            transform: rotate(-45deg);
+            animation: icon-line-long 0.75s;
+        }
+        
+        @keyframes rotate-circle {
+            0% {
+                transform: rotate(-45deg);
+            }
+            5% {
+                transform: rotate(-45deg);
+            }
+            12% {
+                transform: rotate(-405deg);
+            }
+            100% {
+                transform: rotate(-405deg);
+            }
+        }
+        
+        @keyframes icon-line-tip {
+            0% {
+                width: 0;
+                left: 1px;
+                top: 19px;
+            }
+            54% {
+                width: 0;
+                left: 1px;
+                top: 19px;
+            }
+            70% {
+                width: 50px;
+                left: -8px;
+                top: 37px;
+            }
+            84% {
+                width: 17px;
+                left: 21px;
+                top: 48px;
+            }
+            100% {
+                width: 25px;
+                left: 14px;
+                top: 45px;
+            }
+        }
+        
+        @keyframes icon-line-long {
+            0% {
+                width: 0;
+                right: 46px;
+                top: 54px;
+            }
+            65% {
+                width: 0;
+                right: 46px;
+                top: 54px;
+            }
+            84% {
+                width: 55px;
+                right: 0px;
+                top: 35px;
+            }
+            100% {
+                width: 47px;
+                right: 8px;
+                top: 38px;
+            }
+        }
+        
+        /* Action buttons modal */
+        .action-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background: #f9fafb;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        
+        .action-button:hover {
+            background: #f0f9ff;
+            border-color: #0ea5e9;
+            transform: translateY(-2px);
+        }
+        
+        .action-button i {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #0ea5e9;
+        }
+        
+        .action-button span {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #374151;
+        }
+    </style>
+</head>
+<body>
+    <!-- Decorative background elements -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute -top-40 -right-40 w-80 h-80 bg-primary-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float"></div>
+        <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-primary-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float" style="animation-delay: 2s;"></div>
+    </div>
+
+    <!-- Page 1: Landing Page -->
+    <div id="landing-page" class="page active-page">
+        <div class="container mx-auto px-4 py-8 max-w-md relative z-10">
+            <div class="text-center mb-12 animate-fade-in">
+                <div class="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-primary-400 to-primary-600 rounded-3xl mb-6 shadow-lg animate-float">
+                    <i class="fas fa-heart text-white text-4xl"></i>
+                </div>
+                <h1 class="text-5xl font-bold mb-3 font-display text-neutral-900">Nikah Connect</h1>
+                <p class="text-neutral-600 text-lg">Find your perfect match with faith and values</p>
+            </div>
+            
+            <div class="premium-card p-8 mb-8 animate-slide-up" style="cursor: default;">
+                <div class="space-y-4">
+                    <button id="google-login" class="w-full flex items-center justify-center gap-3 bg-white border-2 border-neutral-200 text-neutral-700 rounded-2xl py-4 px-6 font-medium hover:border-neutral-300 hover:shadow-md transition-all duration-300 group">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24">
+                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                        <span class="group-hover:translate-x-1 transition-transform">Continue with Google</span>
+                    </button>
+                    
+                    <div class="relative flex items-center justify-center my-6">
+                        <div class="flex-grow border-t border-neutral-200"></div>
+                        <span class="flex-shrink mx-4 text-neutral-400 text-sm font-medium">OR</span>
+                        <div class="flex-grow border-t border-neutral-200"></div>
+                    </div>
+                    
+                    <div class="modern-input">
+                        <input type="tel" id="phone" placeholder=" " required>
+                        <label for="phone">Your Mobile Number</label>
+                    </div>
+                    
+                    <div class="modern-input mt-6">
+                        <input type="tel" id="guardian-phone" placeholder=" " required>
+                        <label for="guardian-phone">Guardian's Mobile Number</label>
+                    </div>
+                    
+                    <button id="continue-btn" class="btn-primary w-full mt-8 ripple">
+                        Continue <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <p class="text-center text-sm text-neutral-500">
+                By continuing, you agree to our 
+                <a href="#" class="text-primary-600 hover:text-primary-700 font-medium">Terms of Service</a> and 
+                <a href="#" class="text-primary-600 hover:text-primary-700 font-medium">Privacy Policy</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Page 2: Basic Info Form -->
+    <div id="basic-info-page" class="page">
+        <div class="container mx-auto px-4 py-6 max-w-md relative z-10">
+            <div class="flex items-center mb-8">
+                <button id="back-to-landing" class="mr-4 p-2 hover:bg-neutral-100 rounded-xl transition-colors">
+                    <i class="fas fa-arrow-left text-neutral-700 text-xl"></i>
+                </button>
+                <h2 class="text-3xl font-bold text-neutral-900 font-display">Create Your Profile</h2>
+            </div>
+            
+            <div class="premium-card p-8 animate-slide-up" style="cursor: default;">
+                <!-- Photo Upload Section -->
+                <div class="mb-8">
+                    <label class="block text-sm font-semibold text-neutral-700 mb-4">Profile Photo</label>
+                    <div class="flex flex-col items-center">
+                        <div id="photo-preview" class="photo-upload-area w-36 h-36 flex items-center justify-center mb-4">
+                            <div class="text-center">
+                                <i class="fas fa-camera text-4xl text-neutral-400 mb-2"></i>
+                                <p class="text-sm text-neutral-500">Upload Photo</p>
+                            </div>
+                        </div>
+                        <input type="file" id="photo-upload" class="hidden" accept="image/*">
+                        <button id="upload-photo-btn" class="btn-secondary text-primary-600 bg-primary-50 hover:bg-primary-100 px-6 py-2 rounded-xl font-medium transition-all flex items-center gap-2">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            Choose Photo
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Gender Selection -->
+                <div class="mb-8">
+                    <label class="block text-sm font-semibold text-neutral-700 mb-4">Gender</label>
+                    <div class="grid grid-cols-2 gap-4">
+                        <label class="radio-option">
+                            <input type="radio" name="gender" value="male">
+                            <div class="radio-content flex items-center gap-3">
+                                <i class="fas fa-mars text-xl"></i>
+                                <span class="font-medium">Male</span>
+                            </div>
+                            <div class="radio-indicator"></div>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="gender" value="female">
+                            <div class="radio-content flex items-center gap-3">
+                                <i class="fas fa-venus text-xl"></i>
+                                <span class="font-medium">Female</span>
+                            </div>
+                            <div class="radio-indicator"></div>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Birth Year -->
+                <div class="mb-6">
+                    <label class="block text-sm font-semibold text-neutral-700 mb-2">Birth Year</label>
+                    <div class="select-container">
+                        <select id="birth-year" required>
+                            <option value="" disabled selected>Select your birth year</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Full Name -->
+                <div class="modern-input mb-6">
+                    <input type="text" id="full-name" placeholder=" " required>
+                    <label for="full-name">Full Name</label>
+                </div>
+                
+                <!-- Description -->
+                <div class="modern-input mb-8">
+                    <textarea id="description" rows="4" placeholder=" " required></textarea>
+                    <label for="description">About Yourself</label>
+                </div>
+                
+                <button id="finish-basic-info" class="btn-primary w-full ripple">
+                    Complete Profile <i class="fas fa-check ml-2"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 3: Browse Matches -->
+    <div id="browse-page" class="page">
+        <div class="container mx-auto px-4 py-6 pb-24 max-w-lg relative z-10">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-3xl font-bold text-neutral-900 font-display">Discover</h2>
+                <button id="filter-button" class="flex items-center gap-2 text-primary-600 bg-primary-50 hover:bg-primary-100 px-4 py-2 rounded-xl font-medium transition-all">
+                    <i class="fas fa-sliders-h"></i>
+                    <span>Filter</span>
+                </button>
+            </div>
+            
+            <!-- Filter Panel -->
+            <div id="filter-panel" class="glass rounded-2xl p-6 mb-6 hidden animate-slide-down">
+                <h3 class="font-semibold text-neutral-800 mb-4">Filter Preferences</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-neutral-600 mb-2">Min Age</label>
+                        <div class="select-container">
+                            <select id="min-age">
+                                <option value="">Any</option>
+                                <option value="18">18</option>
+                                <option value="21">21</option>
+                                <option value="25">25</option>
+                                <option value="30">30</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-neutral-600 mb-2">Max Age</label>
+                        <div class="select-container">
+                            <select id="max-age">
+                                <option value="">Any</option>
+                                <option value="30">30</option>
+                                <option value="35">35</option>
+                                <option value="40">40</option>
+                                <option value="45">45</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-end mt-6 gap-3">
+                    <button id="reset-filters" class="px-4 py-2 text-neutral-600 hover:text-neutral-800 font-medium">Reset</button>
+                    <button id="apply-filters" class="btn-primary px-6 py-2 text-sm">Apply</button>
+                </div>
+            </div>
+            
+            <!-- Profiles Container -->
+            <div id="profiles-container" class="space-y-6">
+                <!-- Profiles will be dynamically inserted here -->
+            </div>
+            
+            <!-- Loading skeleton -->
+            <div id="loading-skeleton" class="hidden space-y-6">
+                <div class="premium-card overflow-hidden" style="cursor: default;">
+                    <div class="skeleton h-80 w-full"></div>
+                    <div class="p-6">
+                        <div class="skeleton h-8 w-3/4 mb-2"></div>
+                        <div class="skeleton h-6 w-1/2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Navigation -->
+        <nav class="fixed bottom-0 left-0 right-0 navbar z-50">
+            <div class="flex justify-around items-center h-20 max-w-lg mx-auto">
+                <button class="nav-item active flex flex-col items-center justify-center w-1/3 h-full py-2" data-page="browse">
+                    <i class="fas fa-compass text-2xl mb-1"></i>
+                    <span class="text-xs font-medium">Discover</span>
+                </button>
+                <button class="nav-item flex flex-col items-center justify-center w-1/3 h-full py-2 relative" data-page="notifications">
+                    <i class="fas fa-bell text-2xl mb-1"></i>
+                    <span class="text-xs font-medium">Notifications</span>
+                    <span class="notification-badge hidden">2</span>
+                </button>
+                <button class="nav-item flex flex-col items-center justify-center w-1/3 h-full py-2 relative" data-page="messages">
+                    <i class="fas fa-comments text-2xl mb-1"></i>
+                    <span class="text-xs font-medium">Messages</span>
+                    <span class="notification-badge hidden">1</span>
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Page 4: Notifications -->
+    <div id="notifications-page" class="page">
+        <div class="container mx-auto px-4 py-6 pb-24 max-w-lg relative z-10">
+            <h2 class="text-3xl font-bold text-neutral-900 mb-6 font-display">Notifications</h2>
+            
+            <div id="notifications-container" class="space-y-4">
+                <!-- Notifications will be dynamically inserted here -->
+            </div>
+            
+            <div id="empty-notifications" class="hidden text-center py-20">
+                <div class="inline-flex items-center justify-center w-20 h-20 bg-neutral-100 rounded-full mb-4">
+                    <i class="fas fa-bell-slash text-3xl text-neutral-400"></i>
+                </div>
+                <p class="text-neutral-600 font-medium text-lg">No notifications yet</p>
+                <p class="text-neutral-500 text-sm mt-2">We'll notify you when something important happens</p>
+            </div>
+        </div>
+        
+        <!-- Bottom Navigation (Same structure as browse page) -->
+        <nav class="fixed bottom-0 left-0 right-0 navbar z-50">
+            <div class="flex justify-around items-center h-20 max-w-lg mx-auto">
+                <button class="nav-item flex flex-col items-center justify-center w-1/3 h-full py-2" data-page="browse">
+                    <i class="fas fa-compass text-2xl mb-1"></i>
+                    <span class="text-xs font-medium">Discover</span>
+                </button>
+                <button class="nav-item active flex flex-col items-center justify-center w-1/3 h-full py-2 relative" data-page="notifications">
+                    <i class="fas fa-bell text-2xl mb-1"></i>
+                    <span class="text-xs font-medium">Notifications</span>
+                </button>
+                <button class="nav-item flex flex-col items-center justify-center w-1/3 h-full py-2 relative" data-page="messages">
+                    <i class="fas fa-comments text-2xl mb-1"></i>
+                    <span class="text-xs font-medium">Messages</span>
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Page 5: Messages -->
+    <div id="messages-page" class="page">
+        <div class="container mx-auto px-4 py-6 pb-24 max-w-lg relative z-10">
+            <h2 class="text-3xl font-bold text-neutral-900 mb-6 font-display">Messages</h2>
+            
+            <div id="messages-container" class="space-y-4">
+                <!-- Messages will be dynamically inserted here -->
+            </div>
+            
+            <div id="empty-messages" class="hidden text-center py-20">
+                <div class="inline-flex items-center justify-center w-20 h-20 bg-neutral-100 rounded-full mb-4">
+                    <i class="fas fa-comment-slash text-3xl text-neutral-400"></i>
+                </div>
+                <p class="text-neutral-600 font-medium text-lg">No messages yet</p>
+                <p class="text-neutral-500 text-sm mt-2">Start a conversation with your matches</p>
+            </div>
+        </div>
+        
+        <!-- Bottom Navigation (Same structure) -->
+        <nav class="fixed bottom-0 left-0 right-0 navbar z-50">
+            <div class="flex justify-around items-center h-20 max-w-lg mx-auto">
+                <button class="nav-item flex flex-col items-center justify-center w-1/3 h-full py-2" data-page="browse">
+                    <i class="fas fa-compass text-2xl mb-1"></i>
+                    <span class="text-xs font-medium">Discover</span>
+                </button>
+                <button class="nav-item flex flex-col items-center justify-center w-1/3 h-full py-2 relative" data-page="notifications">
+                    <i class="fas fa-bell text-2xl mb-1"></i>
+                    <span class="text-xs font-medium">Notifications</span>
+                </button>
+                <button class="nav-item active flex flex-col items-center justify-center w-1/3 h-full py-2 relative" data-page="messages">
+                    <i class="fas fa-comments text-2xl mb-1"></i>
+                    <span class="text-xs font-medium">Messages</span>
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Profile Detail Modal -->
+    <div id="profile-detail-modal" class="fixed inset-0 modal-backdrop flex items-end sm:items-center justify-center z-50 hidden">
+        <div class="modal-content bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl max-w-md w-full mx-4 overflow-hidden">
+            <div class="relative">
+                <div id="modal-profile-image" class="w-full h-96 bg-neutral-200 bg-center bg-cover"></div>
+                <button id="close-modal" class="absolute top-4 right-4 w-10 h-10 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-all">
+                    <i class="fas fa-times text-neutral-700"></i>
+                </button>
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-8">
+                    <h3 id="modal-name" class="text-3xl font-bold text-white mb-1 font-display"></h3>
+                    <p id="modal-age" class="text-white/90"></p>
+                </div>
+            </div>
+            <div class="p-8">
+                <div class="mb-8">
+                    <h4 class="text-sm font-semibold text-neutral-500 uppercase tracking-wider mb-3">About</h4>
+                    <p id="modal-description" class="text-neutral-700 leading-relaxed"></p>
+                </div>
+                <button id="send-invite-btn" class="btn-primary w-full flex items-center justify-center gap-2">
+                    <i class="fas fa-heart"></i>
+                    Send Invite
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Actions Modal -->
+    <div id="notification-actions-modal" class="fixed inset-0 modal-backdrop flex items-center justify-center z-50 hidden">
+        <div class="modal-content bg-white rounded-3xl shadow-2xl max-w-md w-full mx-4 p-8">
+            <h3 id="notification-modal-name" class="text-2xl font-bold text-neutral-900 mb-2 font-display text-center"></h3>
+            <p id="notification-modal-text" class="text-neutral-600 text-center mb-8"></p>
+            
+            <div class="grid grid-cols-3 gap-4">
+                <button id="view-profile-btn" class="action-button">
+                    <i class="fas fa-user"></i>
+                    <span>View Profile</span>
+                </button>
+                <button id="send-message-btn" class="action-button">
+                    <i class="fas fa-comment"></i>
+                    <span>Message</span>
+                </button>
+                <button id="call-btn" class="action-button">
+                    <i class="fas fa-phone"></i>
+                    <span>Call</span>
+                </button>
+            </div>
+            
+            <button id="close-notification-modal" class="w-full mt-6 text-neutral-500 hover:text-neutral-700 font-medium">Close</button>
+        </div>
+    </div>
+
+    <!-- Chat Modal -->
+    <div id="chat-modal" class="fixed inset-0 bg-white z-50 hidden">
+        <div class="flex flex-col h-full max-w-lg mx-auto">
+            <!-- Chat Header -->
+            <div class="glass px-4 py-4 flex items-center border-b border-neutral-100">
+                <button id="close-chat" class="mr-4 p-2 hover:bg-neutral-100 rounded-xl transition-colors">
+                    <i class="fas fa-arrow-left text-neutral-700 text-xl"></i>
+                </button>
+                <div class="relative">
+                    <div id="chat-profile-pic" class="w-12 h-12 rounded-full bg-neutral-200 bg-center bg-cover"></div>
+                    <div class="status-indicator status-online"></div>
+                </div>
+                <div class="ml-3 flex-1">
+                    <h3 id="chat-name" class="font-semibold text-neutral-800"></h3>
+                    <p class="text-xs text-emerald-600 font-medium">Online</p>
+                </div>
+                <button id="chat-call" class="p-3 hover:bg-neutral-100 rounded-xl transition-colors">
+                    <i class="fas fa-phone text-neutral-700"></i>
+                </button>
+                <button id="chat-video" class="p-3 hover:bg-neutral-100 rounded-xl transition-colors ml-2">
+                    <i class="fas fa-video text-neutral-700"></i>
+                </button>
+            </div>
+            
+            <!-- Chat Messages -->
+            <div id="chat-messages" class="flex-1 overflow-y-auto p-4 bg-neutral-50">
+                <!-- Messages will be inserted here -->
+            </div>
+            
+            <!-- Chat Input -->
+            <div class="glass border-t border-neutral-100 p-4">
+                <div class="flex items-center gap-3">
+                    <button class="p-3 hover:bg-neutral-100 rounded-xl transition-colors">
+                        <i class="fas fa-paperclip text-neutral-600"></i>
+                    </button>
+                    <div class="flex-1 relative">
+                        <input type="text" id="chat-input" class="w-full border-2 border-neutral-200 rounded-2xl px-5 py-3 pr-12 focus:outline-none focus:border-primary-400 transition-colors" placeholder="Type a message...">
+                        <button class="absolute right-2 top-1/2 -translate-y-1/2 p-2 hover:bg-neutral-100 rounded-lg transition-colors">
+                            <i class="far fa-smile text-neutral-600"></i>
+                        </button>
+                    </div>
+                    <button id="send-message" class="btn-primary p-3 rounded-2xl">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="fixed inset-0 modal-backdrop flex items-center justify-center z-50 hidden">
+        <div class="modal-content bg-white rounded-3xl shadow-2xl p-8 max-w-sm w-full mx-4 text-center">
+            <div class="success-checkmark mb-6">
+                <div class="check-icon">
+                    <span class="icon-line line-tip"></span>
+                    <span class="icon-line line-long"></span>
+                </div>
+            </div>
+            <h3 class="text-2xl font-bold text-neutral-900 mb-2 font-display">Success!</h3>
+            <p id="success-message" class="text-neutral-600 mb-6"></p>
+            <button id="close-success" class="btn-primary px-8 py-3">Continue</button>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced sample data with more realistic profiles
+        const maleProfiles = [
+            {
+                id: 'm1',
+                name: 'Ahmed Hassan',
+                age: 28,
+                profession: 'Software Engineer',
+                education: 'MS Computer Science',
+                location: 'Dubai, UAE',
+                description: 'Assalamu alaikum! I\'m a software engineer passionate about technology and Islamic knowledge. I regularly attend halaqas and volunteer at the local masjid. Looking for someone who values both deen and dunya, has a positive outlook on life, and shares my vision of building a family rooted in Islamic values.',
+                image: 'https://randomuser.me/api/portraits/men/32.jpg',
+                verified: true
+            },
+            {
+                id: 'm2',
+                name: 'Dr. Omar Malik',
+                age: 31,
+                profession: 'Pediatrician',
+                education: 'MBBS, MD Pediatrics',
+                location: 'London, UK',
+                description: 'Medical doctor specializing in pediatrics. My work with children brings me immense joy. I\'m active in community service and run free health camps. Seeking a compassionate partner who values education, has strong family values, and wants to make a positive impact in society together.',
+                image: 'https://randomuser.me/api/portraits/men/45.jpg',
+                verified: true
+            },
+            {
+                id: 'm3',
+                name: 'Yusuf Ibrahim',
+                age: 26,
+                profession: 'Financial Analyst',
+                education: 'MBA Finance',
+                location: 'New York, USA',
+                description: 'Business analyst by profession and Quran teacher on weekends. I believe in maintaining a balance between professional success and spiritual growth. Looking for someone who appreciates both traditional values and modern education, has a good sense of humor, and is ready to embark on this beautiful journey of marriage.',
+                image: 'https://randomuser.me/api/portraits/men/28.jpg',
+                verified: false
+            }
+        ];
+
+        const femaleProfiles = [
+            {
+                id: 'f1',
+                name: 'Dr. Aisha Rahman',
+                age: 26,
+                profession: 'Elementary Teacher',
+                education: 'MA Education',
+                location: 'Toronto, Canada',
+                description: 'Elementary school teacher who loves nurturing young minds. I enjoy Islamic calligraphy, baking, and spending time in nature. Looking for someone who is kind, practicing, values family, and has a vision for raising children with strong Islamic values and modern education.',
+                image: 'https://randomuser.me/api/portraits/women/44.jpg',
+                verified: true
+            },
+            {
+                id: 'f2',
+                name: 'Fatima Al-Zahra',
+                age: 28,
+                profession: 'Clinical Pharmacist',
+                education: 'Doctor of Pharmacy',
+                location: 'Riyadh, Saudi Arabia',
+                description: 'Clinical pharmacist passionate about healthcare and patient wellness. I volunteer at health awareness programs and enjoy Islamic art. Seeking a partner who is educated, has strong deen, respects family values, and supports professional growth while maintaining Islamic principles.',
+                image: 'https://randomuser.me/api/portraits/women/68.jpg',
+                verified: true
+            },
+            {
+                id: 'f3',
+                name: 'Maryam Khan',
+                age: 25,
+                profession: 'UI/UX Designer',
+                education: 'BFA Graphic Design',
+                location: 'Istanbul, Turkey',
+                description: 'Creative designer specializing in user experience and modest fashion. I run a small business creating Islamic art prints. Looking for someone who appreciates creativity, has an entrepreneurial mindset, values personal growth, and wants to build a home filled with beauty and barakah.',
+                image: 'https://randomuser.me/api/portraits/women/35.jpg',
+                verified: false
+            }
+        ];
+
+        // Enhanced notifications
+        const sampleNotifications = [
+            {
+                id: 'n1',
+                type: 'invite',
+                from: femaleProfiles[0],
+                message: 'sent you a connection request',
+                time: '2 hours ago',
+                read: false
+            },
+            {
+                id: 'n2',
+                type: 'invite',
+                from: femaleProfiles[1],
+                message: 'sent you a connection request',
+                time: '1 day ago',
+                read: false
+            },
+            {
+                id: 'n3',
+                type: 'profile_view',
+                from: femaleProfiles[2],
+                message: 'viewed your profile',
+                time: '3 days ago',
+                read: true
+            }
+        ];
+
+        // Enhanced messages
+        const sampleMessages = [
+            {
+                id: 'c1',
+                with: femaleProfiles[0],
+                lastMessage: 'Assalamu alaikum! Thank you for accepting my request.',
+                time: '10:30 AM',
+                unread: true,
+                online: true
+            }
+        ];
+
+        // Enhanced chat messages
+        const sampleChatMessages = [
+            {
+                sender: 'them',
+                text: 'Assalamu alaikum! Thank you for accepting my request.',
+                time: '10:30 AM'
+            },
+            {
+                sender: 'me',
+                text: 'Wa alaikum assalam! Nice to connect with you.',
+                time: '10:32 AM'
+            }
+        ];
+
+        // Global state
+        let currentUser = {
+            gender: null,
+            birthYear: null,
+            name: null,
+            description: null,
+            photo: null
+        };
+
+        let currentProfileId = null;
+        let currentChatId = null;
+        let currentNotificationProfile = null;
+
+        // DOM Elements
+        const pages = document.querySelectorAll('.page');
+        
+        // Navigation functions
+        function showPage(pageId) {
+            pages.forEach(page => {
+                page.classList.remove('active-page');
+            });
+            document.getElementById(pageId).classList.add('active-page');
+            
+            // Update navbar
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.dataset.page === pageId.replace('-page', '')) {
+                    item.classList.add('active');
+                }
+            });
+        }
+
+        // Initialize birth year dropdown
+        function initBirthYearDropdown() {
+            const birthYearSelect = document.getElementById('birth-year');
+            const currentYear = new Date().getFullYear();
+            
+            for (let year = currentYear - 18; year >= currentYear - 60; year--) {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                birthYearSelect.appendChild(option);
+            }
+        }
+
+        // Handle photo upload with preview
+        function handlePhotoUpload() {
+            const photoUpload = document.getElementById('photo-upload');
+            const photoPreview = document.getElementById('photo-preview');
+            const uploadBtn = document.getElementById('upload-photo-btn');
+            
+            uploadBtn.addEventListener('click', function() {
+                photoUpload.click();
+            });
+            
+            photoUpload.addEventListener('change', function(e) {
+                if (e.target.files && e.target.files[0]) {
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(event) {
+                        photoPreview.style.backgroundImage = `url('${event.target.result}')`;
+                        photoPreview.innerHTML = '';
+                        photoPreview.classList.add('has-image');
+                        currentUser.photo = event.target.result;
+                    }
+                    
+                    reader.readAsDataURL(e.target.files[0]);
+                }
+            });
+        }
+
+        // Enhanced profile rendering with animations
+        function renderProfiles() {
+            const profilesContainer = document.getElementById('profiles-container');
+            const loadingSkeleton = document.getElementById('loading-skeleton');
+            
+            // Show loading skeleton
+            profilesContainer.innerHTML = '';
+            loadingSkeleton.classList.remove('hidden');
+            
+            // Simulate loading
+            setTimeout(() => {
+                loadingSkeleton.classList.add('hidden');
+                
+                const profiles = currentUser.gender === 'male' ? femaleProfiles : maleProfiles;
+                
+                profiles.forEach((profile, index) => {
+                    const profileCard = document.createElement('div');
+                    profileCard.className = 'premium-card overflow-hidden animate-slide-up';
+                    profileCard.style.animationDelay = `${index * 0.1}s`;
+                    profileCard.innerHTML = `
+                        <div class="profile-image-container relative h-80">
+                            <img src="${profile.image}" alt="${profile.name}" class="w-full h-full object-cover">
+                            ${profile.verified ? '<div class="absolute top-4 right-4 bg-emerald-500 text-white px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1"><i class="fas fa-check-circle"></i> Verified</div>' : ''}
+                            <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                                <h3 class="text-2xl font-bold mb-1 font-display">${profile.name}, ${profile.age}</h3>
+                                <p class="text-white/90 flex items-center gap-2">
+                                    <i class="fas fa-briefcase"></i> ${profile.profession}
+                                </p>
+                                <p class="text-white/90 flex items-center gap-2 mt-1">
+                                    <i class="fas fa-map-marker-alt"></i> ${profile.location}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-neutral-600 line-clamp-3">${profile.description}</p>
+                        </div>
+                    `;
+                    
+                    profileCard.addEventListener('click', () => {
+                        showProfileDetail(profile.id);
+                    });
+                    
+                    profilesContainer.appendChild(profileCard);
+                });
+            }, 1000);
+        }
+
+        // Enhanced profile detail modal
+        function showProfileDetail(profileId) {
+            const profiles = [...maleProfiles, ...femaleProfiles];
+            const profile = profiles.find(p => p.id === profileId);
+            
+            if (!profile) return;
+            
+            currentProfileId = profile.id;
+            
+            const modal = document.getElementById('profile-detail-modal');
+            const modalImage = document.getElementById('modal-profile-image');
+            const modalName = document.getElementById('modal-name');
+            const modalAge = document.getElementById('modal-age');
+            const modalDescription = document.getElementById('modal-description');
+            
+            modalImage.style.backgroundImage = `url('${profile.image}')`;
+            modalName.textContent = profile.name;
+            modalAge.textContent = `${profile.age} years old • ${profile.profession}`;
+            modalDescription.textContent = profile.description;
+            
+            modal.classList.remove('hidden');
+        }
+
+        // Enhanced notifications rendering
+        function renderNotifications() {
+            const notificationsContainer = document.getElementById('notifications-container');
+            const emptyNotifications = document.getElementById('empty-notifications');
+            
+            notificationsContainer.innerHTML = '';
+            
+            if (sampleNotifications.length === 0) {
+                emptyNotifications.classList.remove('hidden');
+                return;
+            }
+            
+            emptyNotifications.classList.add('hidden');
+            
+            // Update notification badge
+            const unreadCount = sampleNotifications.filter(n => !n.read).length;
+            document.querySelectorAll('.nav-item[data-page="notifications"] .notification-badge').forEach(badge => {
+                if (unreadCount > 0) {
+                    badge.textContent = unreadCount;
+                    badge.classList.remove('hidden');
+                } else {
+                    badge.classList.add('hidden');
+                }
+            });
+            
+            sampleNotifications.forEach((notification, index) => {
+                const notificationItem = document.createElement('div');
+                notificationItem.className = `premium-card p-4 flex items-center gap-4 hover:scale-[1.02] animate-slide-up ${!notification.read ? 'bg-primary-50/50' : ''}`;
+                notificationItem.style.animationDelay = `${index * 0.1}s`;
+                notificationItem.innerHTML = `
+                    <div class="relative">
+                        <img src="${notification.from.image}" alt="${notification.from.name}" class="w-14 h-14 rounded-full object-cover">
+                        ${notification.type === 'invite' ? '<div class="absolute -bottom-1 -right-1 w-6 h-6 bg-primary-500 rounded-full flex items-center justify-center"><i class="fas fa-heart text-white text-xs"></i></div>' : ''}
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-semibold text-neutral-800">${notification.from.name}</p>
+                        <p class="text-neutral-600 text-sm">${notification.message}</p>
+                        <p class="text-neutral-500 text-xs mt-1">${notification.time}</p>
+                    </div>
+                    ${!notification.read ? '<div class="w-2 h-2 bg-primary-500 rounded-full"></div>' : ''}
+                `;
+                
+                notificationItem.addEventListener('click', () => {
+                    notification.read = true;
+                    showNotificationActions(notification);
+                });
+                
+                notificationsContainer.appendChild(notificationItem);
+            });
+        }
+
+        // Show notification actions modal
+        function showNotificationActions(notification) {
+            const modal = document.getElementById('notification-actions-modal');
+            const modalName = document.getElementById('notification-modal-name');
+            const modalText = document.getElementById('notification-modal-text');
+            
+            modalName.textContent = notification.from.name;
+            modalText.textContent = notification.message;
+            
+            currentNotificationProfile = notification.from;
+            
+            modal.classList.remove('hidden');
+        }
+
+        // Enhanced messages rendering
+        function renderMessages() {
+            const messagesContainer = document.getElementById('messages-container');
+            const emptyMessages = document.getElementById('empty-messages');
+            
+            messagesContainer.innerHTML = '';
+            
+            if (sampleMessages.length === 0) {
+                emptyMessages.classList.remove('hidden');
+                return;
+            }
+            
+            emptyMessages.classList.add('hidden');
+            
+            // Update message badge
+            const unreadCount = sampleMessages.filter(m => m.unread).length;
+            document.querySelectorAll('.nav-item[data-page="messages"] .notification-badge').forEach(badge => {
+                if (unreadCount > 0) {
+                    badge.textContent = unreadCount;
+                    badge.classList.remove('hidden');
+                } else {
+                    badge.classList.add('hidden');
+                }
+            });
+            
+            sampleMessages.forEach((message, index) => {
+                const messageItem = document.createElement('div');
+                messageItem.className = 'premium-card p-4 flex items-center gap-4 hover:scale-[1.02] animate-slide-up';
+                messageItem.style.animationDelay = `${index * 0.1}s`;
+                messageItem.innerHTML = `
+                    <div class="relative">
+                        <img src="${message.with.image}" alt="${message.with.name}" class="w-14 h-14 rounded-full object-cover">
+                        ${message.online ? '<div class="status-indicator status-online"></div>' : '<div class="status-indicator status-offline"></div>'}
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex justify-between items-center mb-1">
+                            <p class="font-semibold text-neutral-800">${message.with.name}</p>
+                            <span class="text-xs text-neutral-500">${message.time}</span>
+                        </div>
+                        <p class="text-neutral-600 text-sm truncate">${message.lastMessage}</p>
+                    </div>
+                    ${message.unread ? '<div class="w-3 h-3 bg-primary-500 rounded-full animate-pulse-slow"></div>' : ''}
+                `;
+                
+                messageItem.addEventListener('click', () => {
+                    openChat(message);
+                });
+                
+                messagesContainer.appendChild(messageItem);
+            });
+        }
+
+        // Enhanced chat functionality
+        function openChat(message) {
+            currentChatId = message.id;
+            message.unread = false;
+            
+            const chatModal = document.getElementById('chat-modal');
+            const chatName = document.getElementById('chat-name');
+            const chatProfilePic = document.getElementById('chat-profile-pic');
+            const chatMessages = document.getElementById('chat-messages');
+            
+            chatName.textContent = message.with.name;
+            chatProfilePic.style.backgroundImage = `url('${message.with.image}')`;
+            
+            // Render chat messages
+            chatMessages.innerHTML = '';
+            sampleChatMessages.forEach(msg => {
+                const messageElement = document.createElement('div');
+                messageElement.className = msg.sender === 'me' 
+                    ? 'flex justify-end mb-4 animate-slide-up' 
+                    : 'flex justify-start mb-4 animate-slide-up';
+                
+                messageElement.innerHTML = `
+                    <div class="chat-bubble ${msg.sender === 'me' ? 'chat-bubble-sent' : 'chat-bubble-received'} py-3 px-5">
+                        <p>${msg.text}</p>
+                        <p class="text-xs ${msg.sender === 'me' ? 'text-primary-100' : 'text-neutral-500'} text-right mt-1">${msg.time}</p>
+                    </div>
+                `;
+                
+                chatMessages.appendChild(messageElement);
+            });
+            
+            chatModal.classList.remove('hidden');
+            
+            // Scroll to bottom
+            setTimeout(() => {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 100);
+        }
+
+        // Send message functionality
+        function sendMessage() {
+            const chatInput = document.getElementById('chat-input');
+            const chatMessages = document.getElementById('chat-messages');
+            
+            if (chatInput.value.trim() === '') return;
+            
+            const now = new Date();
+            const timeString = now.getHours() + ':' + (now.getMinutes() < 10 ? '0' : '') + now.getMinutes();
+            
+            const messageElement = document.createElement('div');
+            messageElement.className = 'flex justify-end mb-4 animate-slide-up';
+            messageElement.innerHTML = `
+                <div class="chat-bubble chat-bubble-sent py-3 px-5">
+                    <p>${chatInput.value}</p>
+                    <p class="text-xs text-primary-100 text-right mt-1">${timeString}</p>
+                </div>
+            `;
+            
+            chatMessages.appendChild(messageElement);
+            
+            // Add to sample chat messages
+            sampleChatMessages.push({
+                sender: 'me',
+                text: chatInput.value,
+                time: timeString
+            });
+            
+            // Update last message
+            const message = sampleMessages.find(m => m.id === currentChatId);
+            if (message) {
+                message.lastMessage = chatInput.value;
+                message.time = timeString;
+            }
+            
+            // Clear input
+            chatInput.value = '';
+            
+            // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            // Simulate typing indicator and response
+            setTimeout(() => {
+                const typingIndicator = document.createElement('div');
+                typingIndicator.className = 'flex justify-start mb-4 animate-slide-up';
+                typingIndicator.innerHTML = `
+                    <div class="chat-bubble chat-bubble-received py-3 px-5">
+                        <div class="flex gap-1">
+                            <div class="w-2 h-2 bg-neutral-400 rounded-full animate-bounce" style="animation-delay: 0ms"></div>
+                            <div class="w-2 h-2 bg-neutral-400 rounded-full animate-bounce" style="animation-delay: 150ms"></div>
+                            <div class="w-2 h-2 bg-neutral-400 rounded-full animate-bounce" style="animation-delay: 300ms"></div>
+                        </div>
+                    </div>
+                `;
+                chatMessages.appendChild(typingIndicator);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // Remove typing indicator after delay
+                setTimeout(() => {
+                    typingIndicator.remove();
+                }, 2000);
+            }, 1000);
+        }
+
+        // Show success modal
+        function showSuccess(message) {
+            const modal = document.getElementById('success-modal');
+            const successMessage = document.getElementById('success-message');
+            
+            successMessage.textContent = message;
+            modal.classList.remove('hidden');
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize birth year dropdown
+            initBirthYearDropdown();
+            
+            // Initialize photo upload
+            handlePhotoUpload();
+            
+            // Page 1: Landing Page
+            document.getElementById('continue-btn').addEventListener('click', function() {
+                const phone = document.getElementById('phone').value;
+                const guardianPhone = document.getElementById('guardian-phone').value;
+                
+                if (!phone || !guardianPhone) {
+                    alert('Please fill in all required fields');
+                    return;
+                }
+                
+                showPage('basic-info-page');
+            });
+            
+            document.getElementById('google-login').addEventListener('click', function() {
+                // Simulate Google login
+                showPage('basic-info-page');
+            });
+            
+            // Page 2: Basic Info
+            document.getElementById('back-to-landing').addEventListener('click', function() {
+                showPage('landing-page');
+            });
+            
+            document.getElementById('finish-basic-info').addEventListener('click', function() {
+                // Get form values
+                const gender = document.querySelector('input[name="gender"]:checked');
+                const birthYear = document.getElementById('birth-year').value;
+                const fullName = document.getElementById('full-name').value;
+                const description = document.getElementById('description').value;
+                
+                // Validate form
+                if (!gender) {
+                    alert('Please select your gender');
+                    return;
+                }
+                
+                if (!birthYear) {
+                    alert('Please select your birth year');
+                    return;
+                }
+                
+                if (!fullName) {
+                    alert('Please enter your full name');
+                    return;
+                }
+                
+                if (!description) {
+                    alert('Please write something about yourself');
+                    return;
+                }
+                
+                // Save user data
+                currentUser.gender = gender.value;
+                currentUser.birthYear = birthYear;
+                currentUser.name = fullName;
+                currentUser.description = description;
+                
+                // Show success
+                showSuccess('Your profile has been created successfully!');
+                
+                // Navigate to browse page after delay
+                setTimeout(() => {
+                    document.getElementById('success-modal').classList.add('hidden');
+                    renderProfiles();
+                    showPage('browse-page');
+                }, 2000);
+            });
+            
+            // Filter functionality
+            document.getElementById('filter-button').addEventListener('click', function() {
+                const filterPanel = document.getElementById('filter-panel');
+                filterPanel.classList.toggle('hidden');
+            });
+            
+            document.getElementById('apply-filters').addEventListener('click', function() {
+                const filterPanel = document.getElementById('filter-panel');
+                filterPanel.classList.add('hidden');
+                // In a real app, we would filter the profiles here
+                showSuccess('Filters applied successfully!');
+            });
+            
+            document.getElementById('reset-filters').addEventListener('click', function() {
+                document.getElementById('min-age').value = '';
+                document.getElementById('max-age').value = '';
+            });
+            
+            // Profile Modal
+            document.getElementById('close-modal').addEventListener('click', function() {
+                document.getElementById('profile-detail-modal').classList.add('hidden');
+            });
+            
+            document.getElementById('send-invite-btn').addEventListener('click', function() {
+                document.getElementById('profile-detail-modal').classList.add('hidden');
+                showSuccess('Invitation sent successfully!');
+            });
+            
+            // Navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const page = this.dataset.page;
+                    
+                    if (page === 'notifications') {
+                        renderNotifications();
+                    } else if (page === 'messages') {
+                        renderMessages();
+                    }
+                    
+                    showPage(page + '-page');
+                });
+            });
+            
+            // Notification Actions Modal
+            document.getElementById('close-notification-modal').addEventListener('click', function() {
+                document.getElementById('notification-actions-modal').classList.add('hidden');
+            });
+            
+            document.getElementById('view-profile-btn').addEventListener('click', function() {
+                document.getElementById('notification-actions-modal').classList.add('hidden');
+                if (currentNotificationProfile) {
+                    showProfileDetail(currentNotificationProfile.id);
+                }
+            });
+            
+            document.getElementById('send-message-btn').addEventListener('click', function() {
+                document.getElementById('notification-actions-modal').classList.add('hidden');
+                
+                if (currentNotificationProfile) {
+                    // Check if chat already exists
+                    let chat = sampleMessages.find(m => m.with.id === currentNotificationProfile.id);
+                    
+                    // If not, create a new chat
+                    if (!chat) {
+                        chat = {
+                            id: 'c' + (sampleMessages.length + 1),
+                            with: currentNotificationProfile,
+                            lastMessage: '',
+                            time: 'Just now',
+                            unread: false,
+                            online: true
+                        };
+                        sampleMessages.push(chat);
+                    }
+                    
+                    openChat(chat);
+                }
+            });
+            
+            document.getElementById('call-btn').addEventListener('click', function() {
+                document.getElementById('notification-actions-modal').classList.add('hidden');
+                alert('Calling feature coming soon!');
+            });
+            
+            // Chat Modal
+            document.getElementById('close-chat').addEventListener('click', function() {
+                document.getElementById('chat-modal').classList.add('hidden');
+            });
+            
+            document.getElementById('send-message').addEventListener('click', sendMessage);
+            
+            document.getElementById('chat-input').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+            
+            document.getElementById('chat-call').addEventListener('click', function() {
+                alert('Voice call feature coming soon!');
+            });
+            
+            document.getElementById('chat-video').addEventListener('click', function() {
+                alert('Video call feature coming soon!');
+            });
+            
+            // Success Modal
+            document.getElementById('close-success').addEventListener('click', function() {
+                document.getElementById('success-modal').classList.add('hidden');
+            });
+            
+            // Add ripple effect to buttons
+            document.querySelectorAll('.ripple').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    ripple.classList.add('ripple-effect');
+                    
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => ripple.remove(), 600);
+                });
+            });
+            
+            // Smooth scroll for chat
+            const chatMessages = document.getElementById('chat-messages');
+            if (chatMessages) {
+                chatMessages.addEventListener('scroll', function() {
+                    if (this.scrollTop === 0) {
+                        // Load more messages when scrolled to top
+                        console.log('Load more messages');
+                    }
+                });
+            }
+            
+            // Initialize notification badges
+            renderNotifications();
+            renderMessages();
+        });
+
+        // Make showProfileDetail available globally
+        window.showProfileDetail = showProfileDetail;
+    </script>
+</body>
+</html>
